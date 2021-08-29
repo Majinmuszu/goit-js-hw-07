@@ -23,8 +23,9 @@ const createGalleryItems = (galleryItems) => {
     galleryImg.dataset.source = item.original;
     galleryImg.alt = item.description;
     galleryLink.append(galleryImg);
-  }
+  };
 };
+
 function selectImage(event) {
   event.preventDefault();
   if (event.target.nodeName !== "IMG") {
@@ -32,10 +33,11 @@ function selectImage(event) {
   }
   for (const item of galleryItems) {
     if (event.target.src === item.preview) {
-      basicLightbox.create(`<img src=${item.original}>`).show();
-    }
-  }
-}
+      const modal = basicLightbox.create(`<img src=${item.original}>`);
+      modal.show();
+    };
+  };
+};
 
 createGalleryItems(galleryItems);
 gallery.addEventListener("click", selectImage);
