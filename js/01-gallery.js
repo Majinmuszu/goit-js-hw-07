@@ -23,7 +23,7 @@ const createGalleryItems = (galleryItems) => {
     galleryImg.dataset.source = item.original;
     galleryImg.alt = item.description;
     galleryLink.append(galleryImg);
-  };
+  }
 };
 
 function selectImage(event) {
@@ -32,12 +32,19 @@ function selectImage(event) {
     return;
   }
   for (const item of galleryItems) {
+    const modal = basicLightbox.create(`<img src=${item.original}>`);
     if (event.target.src === item.preview) {
-      const modal = basicLightbox.create(`<img src=${item.original}>`);
       modal.show();
-    };
-  };
-};
+    }
+    if (modal.visible() === true) {
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          modal.close();
+        }
+      });
+    }
+  }
+}
 
 createGalleryItems(galleryItems);
 gallery.addEventListener("click", selectImage);
